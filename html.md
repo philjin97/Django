@@ -25,6 +25,67 @@
 #### span is an inline tag. div is a block tag. 
 #### id tags are for chunks. classes can happen more than once. 
 #### #first{} .shout{} #first p{}
+<br/>
+
+#### <img src="" style="float:right">
+#### Taking the image out of its original flow and reserving the space on the right for the image. 
+#### <hr clear="all" />
+#### hr tag stands for horizontal rule. Used to insert a horizontal rule to divide and separate document sections. clear="all" means to clear any floats. 
+#### <br clear="all" />
+#### br tag is used to insert a line break.
+<br/>
+
+#### Advanced Colors. #rgb numbers. Higher numbers for higher amounts of that color. 0 ~ 9, then a (=10), b, c, d, e, f (=15). 00 - FF. For example, #ffffff = white, #000000 = black, #ff0000 = red, #00ff00 = green, #0000ff = blue. 
+<br/>
+
+#### Default fonts are Times Roman. body {font-family: "Trebuchet MS", Helvetica, Arial, sans-serif;}
+#### the most left font is the most favorite preferred font. If that font doesn't exist, the list moves on the right. Fallback fonts are usually sans-serif. 
+<br/>
+
+#### Styling for links. 
+#### a {font-weight: bold;} => before a visit
+#### a:link {color:black;} => before a visit? 
+#### a:visited {color: gray;} => after it has been visited
+#### a:hover {text-decoration: none;} => when your mouse is over it but you have not clicked
+#### a:active {color: aqua;} => you have clicked it and you have not yet see the new page
+<br/>
+
+#### <nav><ul><li><a href="" class=""></a><li><a href="" class=""></a></li></nav>
+#### A nav tag is a html tag. 
+<br/>
+
+#### <link href="http://fonts.google.api..." rel="stylesheet">
+#### To use a font from somewhere else. 
+<br/>
+
+#### <input type="color" onchange="alert(this.value);">
+#### A color picker. 
+<br/>
+
+#### <p style="border-style: dashed; border-color: blue !important;>
+#### The CSS rule that is closest to the tag wins unless a 'further away' tag marks itself as 1important. 
+<br/>
+
+#### padding, border, margin 
+<br/>
+
+#### Positioning.
+#### <div style="position: relative; left: -20px; top: 20px;">
+#### Relative positioning. A relative position moves a block away from where it would normally lay out. 
+#### <div style="position: fixed; bottom: 20px; left: 30%;">
+#### Fixed text is relative to the window. Maintains its position even when the window is resized or scrolled. A link that never goes away. 
+#### <div style="position: absolute; top: 40px; left: 30%;">
+#### Absolute text is relative to its parent element. In this case, the div is positioned relative to the body tag. Maintains its position even when the window is resized or scrolled. 
+#### Fixed and absolute elements are 'plucked out' from the normal render stream and take up no vertical space. 
+<br/>
+
+#### Z-index. 
+#### What happens when things overlap? Z-index higher number comes on top. 
+#### <div style="z-index:100">
+<br/>
+
+#### How Databases Work
+#### 
 
 
 
