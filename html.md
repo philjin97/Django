@@ -85,6 +85,13 @@
 <br/>
 
 #### How Databases Work
+#### SQL is used to make Database engines. Keeping the data organized and making it simple. 
+#### Before: Computers did not have enough data storage. Database was recorded onto a tape. Read record off tape and compare it with the transaction physical cards and then updated data would be recorded onto a tape again. Process took a long time. 
+#### Then: Disk drives were invented. Faster than tape as the speed was the speed that the disk spun. How do we record and use this to organize data? 
+#### SQL (Structured Query Language) came out of a government/ industry partnership. Formed from the need to have a standard for reading and organizing data from different industries and companies. SQL is the language we use to issue commands to the database (CRUD). 
+<br/>
+
+#### Relational Databases model data by storing rows and columns in tables. The power of the relational database lies in its ability to efficiently retrieve data from those tables and in particular where there are multiple tables and relationships between those tables involved in the query. 
 #### 
 
 
