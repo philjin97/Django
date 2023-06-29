@@ -122,7 +122,7 @@
 <br/>
 
 #### SELECT * FROM Users ORDER BY email
-#### SELECT * FRO MUsers ORDER BY name DESC 
+#### SELECT * FROM Users ORDER BY name DESC 
 #### You can add an ORDER BY clause to SELECT statements to get the results sorted in ascending or descending order. 
 <br/>
 
