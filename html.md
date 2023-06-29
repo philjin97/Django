@@ -92,6 +92,40 @@
 <br/>
 
 #### Relational Databases model data by storing rows and columns in tables. The power of the relational database lies in its ability to efficiently retrieve data from those tables and in particular where there are multiple tables and relationships between those tables involved in the query. 
+#### 3 major database management systems: Postgres, Oracle, MySQL (Simpler but very fast and scalable). 
+#### Database Model. A database model or database schema is the structure or format of a database, described in a formal language supported by the database management system. In other words, a "database model" is the application of a data model when used in conjunction with a database management system. 
+#### SQL - Create data, Retrieve data, Update data, Delete data
+<br/>
+
+#### Making a Database
+#### Create a simple table
+#### CREATE TABLE Users( id integer NOT NULL PRIMARY KEY AUTOINCREMENT, name VARCHAR(128), email VARCHAR(128) );
+#### .tables
+#### .schema Users
+<br/>
+
+#### INSERT INTO Users (name, email) VALUES ('Kristin', 'kf@umich.edu')
+#### The insert statement inserts a row into a table. 
+<br/>
+
+#### DELETE FROM Users WHERE email='ted@umich.edu'
+#### Deletes a row in a table based on selection criteria. 
+<br/>
+
+#### UPDATE users SET name='Charles' WHERE email='csev@umich.edu'
+#### Allows the updating of a field with a where clause. 
+<br/>
+
+#### SELECT * FROM Users
+#### SELECT * FROM Users WHERE email='csev@umich.edu'
+#### Select statement retrieves a group of records - you can either retrieve all the records or a subset of the records with a WHERE clause.
+<br/>
+
+#### SELECT * FROM Users ORDER BY email
+#### SELECT * FRO MUsers ORDER BY name DESC 
+#### You can add an ORDER BY clause to SELECT statements to get the results sorted in ascending or descending order. 
+<br/>
+
 #### 
 
 
