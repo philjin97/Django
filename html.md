@@ -126,7 +126,54 @@
 #### You can add an ORDER BY clause to SELECT statements to get the results sorted in ascending or descending order. 
 <br/>
 
-#### 
+#### Object Relational Mapping (ORM)
+#### Allows us to map tables to objects and columns. We use those objects to store and retrieve data from the database. Improved portability across database dialects. 
+<br/>
+
+#### Defining a table
+#### SQL: CREATE TABLE Users (name VARCHAR(128), email VARCHAR(128));
+#### models.py: from django.db import models 
+#### class User(models.Model): name = models.CharField(max_length=128) email = models.CharField(max_length=128)
+#### These two are the same code. 
+<br/>
+
+#### python manage.py makemigrations 
+#### python manage.py migrate
+#### makemigrations are making a drawing. Then migrate is actually applying the drawing to the database. 
+<br/>
+
+#### python manage.py shell 
+#### from usermodel.models import User 
+#### u = User(name='Kristen', email='kf@umich.edu')
+#### u.save()
+#### print(u.id)
+#### print(u.email) 
+<br/>
+
+#### u = User(name='Sally', email='a2@umich.edu')
+#### u.save() 
+<br/>
+
+#### User.objects.values()
+#### User.objects.filter(email='csev@umich.edu').values()
+#### User.objects.values() is like the SELECT clause. filter() is like the WHERE clause. 
+<br/>
+
+#### User.objects.filter(email='ted@umich.edu').delete()
+#### User.objects.values()
+<br/>
+
+#### User.objects.filter(email='csev@umich.edu').update(name='Charles')
+#### User.objects.values()
+<br/>
+
+#### User.objects.values().order_by('email')
+#### User.objects.values().order_by('-name')
+<br/>
+
+#### makemigrations command reads all the models.py files in all the applications, end creates/ evolves the migration files. Guided by the applications listed in settings.py. Migrations are portable across databases. 
+#### migrate command reads all the migrations folders in the application folders and creates / evolves the tables in the database. 
+
 
 
 
