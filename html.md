@@ -251,7 +251,97 @@
 ####    return HttpResponse(response)
 <br/>
 
+#### 3. Class Views - Inheritance
+#### path('main', views.MainView.as_view()),
+#### In views.py...
+#### from django.http import HttpResponse
+#### from django.utils.html import escape
+#### from django.views import View
+#### class MainView(View):
+####    def get(self, request):
+####        response = """<html><body><p>Hello world MainView in HTML</p></body></html>"""
+####        return HttpResponse(response)
+<br/>
+
+#### path('remain/<slug:guess>', views.RestMainView.as_view()), 
+#### In views.py...
+#### from django.http import HttpResponse
+#### from django.utils.html import escape
+#### from django.views import View
+#### class RestMainView(View):
+####    def get (self, request, guess):
+####        response = """<html><body><p>Your guess was """+escape(guess)+"""</p></body></html>""" 
+####        return HttpResponse(response)
+<br/>
+
+#### HTTP Status Codes 
+#### 200 OK 
+#### 404 Not Found 
+#### 302 Found/ Moved (redirect) - I know where you are supposed to be, but it isn't here. You can send a redirect response instead of a page response to communicate a location header to the browser. The location header includes a URL that the browser is supposed to forward itself to. 
+<br/>
+
+#### Sending a Redirect from a View 
+#### path('bounce', views.bounce)
+#### In views.py...
+#### from django.http import HttpResponse
+#### from django.http import HttpResponseRedirect
+#### def bounce(request): 
+####    return HttpResponseRedirect('https://...)
+#### This function sends you to a different location. 
+<br/>
+
+#### Templates to Organize HTML 
+#### Concatenation and escaping can get tiresome and lead to very obtuse looking view code. 
+#### path('game/<slug:guess>', views.GameView.as_view())
+#### In views.py...
+#### from django.shortcuts import render
+#### from django.views import View
+#### class GameView(View): 
+####    def get(self, request, guess):
+####        x = {'guess': int(guess)}
+####        return render(request, 'tmpl/cond.html', x)
+#### In template cond.html...
+#### <html><head></head><body><p>Your guess was {{guess}}</p> {% if guess <body 42 %} <p>Too low</p> {% else %} <p> Just right</p> {% endif %} </body></html>
+<br/>
+
+#### If there are many applications with templates in each application, we use a technique called 'namespace' so that each application can load its own templates. 
+#### For namespace to work, we need to put templates in a path that includes the application name twice. ex) favs/templates/favs/detail.html 
+<br/>
+
+#### DTL - Django template language 
+#### Substitution {{ zap }}, {{ zap|safe }}
+#### Calling code {% url 'cat-detail' cat.id %}, {% author.get_absolute_url %}
+#### Logic {% if zap > 100 %}, {% endif %}
+#### Blocks {% block content %}, {% endblock %}
+<br/>
+
+#### def guess(request): 
+####    context = {'zap': '42'}
+####    return render(request, 'tmpl/guess.html', context)
+#### In tmpl/guess.html...
+#### <body><p>Your guess was {{ zap }}</p>
+<br/>
+
+#### def loop(request): 
+####    f = ['apple', 'orange', 'banana', 'lychee']
+####    n = ['peanut', 'cashew']
+####    x = {'fruits': f, 'nuts': n, 'zap': '42'}
+####    return render(request, 'tmpl/loop.html', x)
+#### In tmpl/loop.html... 
+#### <ul> {% for x in fruits %} <li>{{ x }}</li>{% endfor %}</ul>
+#### {% if nuts %}<p>Number of nuts: {{ nuts|length }}</p>{% endif %}
+<br/>
+
+#### def nested(request): 
+#### x = {'outer': {'inner': '42'}}
+#### return render(request, 'tmpl/nested.html', x)
+#### In nested.html...
+#### <body><p>Your guess was {{ outer.inner }}</p>
+<br/>
+
+#### Template Inheritance 
 #### 
+
 
 
 
