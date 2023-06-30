@@ -180,6 +180,79 @@
 #### N:1 or 1:N (ex. Comment(N) - Article(1))
 #### class Comment(models.Model): article = models.ForeignKey(Article, on_delete=models.CASCADE)
 #### to는 참조하는 모델 class 이름, on_delete는 참조하는 모델 class가 삭제 될 때 연결된 하위 객체의 동작을 결정. CASCADE는 부모 객체가 삭제 됐을 때 이를 참조하는 객체도 삭제. 
+<br/>
+
+#### Model-View-Controller 
+#### In MVC, the model represents the information (the data) of the application and the business rules used to manipulate the data. The view corresponds to elements of the user interface such as text, checkbox items, and so forth. The controller manages details involving the communication to the model of user actions. 
+#### Browser-> HTTP Request -> Handle input -> Store Data -> Retrieve Data -> Build HTML -> HTTP Response 
+<br/>
+
+#### Views and Templates
+#### Views are the core of our application. Django looks at incoming request URL and uses urls.py to select a view -> View from views.py handles any incoming data in the request and copy it to the database through the model. Then it retrieves data to put on the pages from the database through the model. Finally, it produces the HTML that will become the response and return it to the browser. 
+<br/>
+
+#### Reading the URL. When Django receives an HTTP request, it parses it, and uses some of the URL for routing purposes and passes parts of the URL to your code. 
+#### ....com/views/funky -> View within application
+#### ....com/views/danger?guess=42 -> Key/ value parameter (GET)
+#### ....com/views/rest/24 -> URL Path Parameter
+<br/>
+
+#### 3 patterns for views (in urls.py): 
+#### 1. Requests are routed to a pre-defined class from Django itself
+#### 2. Requests are routed to a function in views.py that takes the http request as a parameter and returns a response
+#### 3. Requests are routed to a class in views.py that has get() and post() methods that take the http request as a parameter and returns a response
+<br/>
+
+#### Viewing the Views 
+#### 1. Pre-defined. 
+#### views/urls.py
+#### path('', TemplateView.as_view(template_name='views/main.html')) 
+#### views/templates/views/main.html 
+#### Doesn't require a lot of code. Just send back the html file. 
+<br/>
+
+#### 2. Function in views.py.
+#### path('funky', views.funky), 
+#### In the views.py... 
+#### from django.http import HttpResponse
+#### from django.http import HttpResponseRedirect
+#### def funky(request): 
+####    response = """<html><body><p>This is the funky function sample</p></body></html>"""
+####    return HttpResponse(response)
+#### A HttpResponse is like a body of text. 
+<br/>
+
+#### path('danger', views.danger), 
+#### In the views.py...
+#### from django.http import HttpResponse
+#### from django.http import HttpResponseRedirect
+#### def danger(request):
+####    response = """<html><body><p>Your guess was """+request.GET['guess']+"""</p></body></html>"""
+####    return HttpResponse(response)
+#### A request.GET is a dictionary of the key-value pairs that are on the URL. To pull the 42, dict[key] so you put in ['guess'] to get the value 42. 
+#### Why is the view named danger? It is dangerous to take data from the user and include it in the HTTP Response without 'escaping' the output. HTML + JavaScript is a programming language and you don't want your users 'sending code' to other user's browsers. Cross-Site Scripting (XSS). So we need to protect against this. 
+#### Another view function...
+#### from django.utils.html import escape
+#### def game(request): 
+####    response = """<html><body><p>Your guess was """+escape(request.GET['guess'])+"""</p>
+####    return HttpResponse(response)
+#### After getting the value of guess, it calls a function escape which processes any dangerous characters. Automatic filter that prevents data from turning into code that might damage system. 
+<br/>
+
+#### path('rest/<int:guess>', views.rest), 
+#### ....com/views/rest/41 
+#### the 41 is <type:paramter-name>
+#### This is basically saying that the parameter after the word rest is an integer, and please pass it in as the parameter guess. 
+#### In the views.py...
+#### from django.http import HttpResponse
+#### from django.utils.html import escape
+#### def rest(request, guess):
+####    response = """<html><body><p>Your guess was """+escape(guess)+"""</p></body></html>"""
+####    return HttpResponse(response)
+<br/>
+
+#### 
+
 
 
 
