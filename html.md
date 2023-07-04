@@ -340,6 +340,48 @@
 <br/>
 
 #### Template Inheritance 
+#### Inheritance - When we make a new template, we can extend an existing template and then add our own little bit to make our new class. Another form of store and reuse. Don't Repeat Yourself. 
+#### Render Data + Base Template + Template => Rendered Output
+<br/>
+
+#### template/base.html 
+#### <html>...<body>{% block content %}{% endblock %}</body></html>
+#### template/cond.html 
+#### {% extends "template/base.html" %}
+#### {% block content %}<p>Your guess was {{ guess }}</p>{% endblock %}
+<br/>
+
+#### URL Mapping / Reversing 
+#### urls.py 
+#### app_name = 'route'
+#### urlpatterns = [ path('second', views.SecondView.as_view(), name='second-view'), ]
+#### route:first-view => application name: view name 
+#### <a href="{% url 'route:second-view' %}></a>
+<br/>
+
+#### Other applications and parameters
+#### 'gview:cat' 42 => application name: view name parameter 
+#### urls.py urlpatterns = [path('hello/', include('hello.urls', namespace='nshello'))] 
+#### you can either refer to it as hello:second-view or nshello:second-view. Both are fine. 
+<br/>
+
+#### In urls.py ... 
+#### path('second', views.SecondView.as_view(), name='second-view'),
+#### In views.py ... 
+#### from django.shortcuts import render 
+#### from django.urls import reverse, reverse_lazy 
+#### from django.views import View 
+#### class SecondView(View): 
+####    def get(self, request): 
+####        u = reverse_lazy('gview:cats')
+####        u2 = reverse_lazy('gview:dogs')
+####        u3 = reverse('gview:dog', args=['42'])
+####        ctx = {'x1': u, 'x2': u2, 'x3: u3}
+####        return render(request, 'route/second.html', ctx)
+#### reverse, and reverse_lazy are from the django.urls library. Reverse and reverse_lazy says delay it to look it up. 
+<br/>
+
+#### Generic Views 
 #### 
 
 
