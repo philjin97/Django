@@ -382,7 +382,34 @@
 <br/>
 
 #### Generic Views 
-#### 
+#### Generic Views - List / Detail 
+#### In views.py... 
+#### class CatListView(View):
+####    def get(self, request): 
+####        stuff = Cat.objects.all()
+####        cntx = {'cat_list': stuff}
+####        return render(request, 'gview/cat_list.html', cntx)
+#### class DogListView(View):
+####    model = Dog 
+####    def get(self, request): 
+####        modelname= self.model._meta.verbose_name.title().lower()
+####        stuff = self.model.objects.all()
+####        cntx = { modelname+'_list': stuff}
+####        return render(request, 'gview/' +modelname+' _list.html', cntx)
+#### from django.views import generic 
+#### class HorseListView(generic.ListView): 
+####    model = Horse 
+#### generic views allow us to produce lots of similar pages without cutting, pasting, and editing boiler plate. Quicker development. Consistent User Experience. Less lines of code. 
+<br/>
+
+#### Form Processing 
+#### Forms gather data and send it to the server. 
+#### Two ways the browser can send parameters to the web server. GET - parameters are placed on the URL which is retrieved. POST - the URL is retrieved and parameters are appended to the request in the HTTP connection. 
+#### Browser has a form <input type="text" name="guess" id="yourid" />
+#### Browser sends a HTTP Request to the Web Server -> GET / POST 
+#### POST is used when data is being created or modified. GET is used when you are reading or searching things. GET should never be used to insert, modify or delete data. 
+
+
 
 
 
