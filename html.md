@@ -407,7 +407,88 @@
 #### Two ways the browser can send parameters to the web server. GET - parameters are placed on the URL which is retrieved. POST - the URL is retrieved and parameters are appended to the request in the HTTP connection. 
 #### Browser has a form <input type="text" name="guess" id="yourid" />
 #### Browser sends a HTTP Request to the Web Server -> GET / POST 
-#### POST is used when data is being created or modified. GET is used when you are reading or searching things. GET should never be used to insert, modify or delete data. 
+#### POST is used when data is being created or modified. GET is used when you are reading or searching things. GET should never be used to insert, modify or delete data. GET urls should be 'idempotent' and the same URL should give the same thing each thing you access it. 
+<br/>
+
+#### Forms in HTML
+#### <p><label for="inp01">Account:</label>
+#### <input type="text" name="account" id="inp01" size="40"></p>
+#### type refers to textbox, id refers to the label tag with the field to know that the account and the textbox is connected. name is the key for the value. 
+#### <input type="password"></p>
+#### type password shows it in asterisks.  
+#### <input type="radio" name="when" value="am">AM<br>
+#### type radio is choosing an option, if name=when, only one selected. 
+#### <input type="checkbox" name="class1">py4e - Python <br>
+#### <input type="checkbox" name="class2" value="si539" checked>si<br/>
+#### type checkbox is you can choose multiple options. if no value, then just class1=on, if value, class2=si539. 
+#### <p><label for="inp06>Which soda: 
+#### <select name="soda" id="inp06"><option value="0">--Please Select--</option></select></p> 
+#### This is a drop down. 
+#### <p><label for="inp06>Tell us: <br/><textarea rows="10" cols="40" id="inp08" name="about">I love ~ </textarea></p>
+#### This is a textarea. 
+#### <input type="submit" name="dopost" value="Submit" />
+#### <input type="button" onclick="location.href='http://www.dj4e.com/'; return false;" value="Escape"> 
+#### Submit / Escape buttons. 
+#### Select your favorite color: 
+#### <input type="color" name="favcolor" value="#0000ff"><br/> 
+<br/>
+
+#### Cross-Site-Request-Forgery(CSRF)
+#### CSRF Attack is that a rogue site generates a page that includes form that posts data to a legitimate site where the user is logged in via a session cookie. The form is submitted to the legitimate site and the cookie is included. The legitimate site accepts the request because of the cookie value. 
+#### CSRF Defense is that the legitimate site chooses a large random number and puts it in the session. When the legitimate site generates a POST form, it includes the CSRF Token as a hidden input field. When the form is submitted the CSRF Token is sent as well as the cookie. The site looks up the session and rejects the request if the incoming CSRF Token does not match the session's CSRF Token. 
+#### Django has built in support to generate, use, and check CSRF Tokens. 
+<br/>
+
+#### from django.middleware.csrf import get_token 
+#### or 
+#### {% csrf_token %} inside form in the template. 
+<br/>
+
+#### In views.py...
+#### class ClassyView(View): 
+####    def get(self, request): 
+####        return render(request, 'getpost/guess.html')
+####    def post(self, request):
+####        guess = request.POST.get('guess')
+####        msg = checkguess(guess)
+####        return render(request, 'getpost/guess.html', {'message': msg})
+<br/>
+
+#### POST/ Refresh/ -> Once you do a POST request and receive 200 status + a page of HTML, if you tell the browser to refresh, the browser will re-send the POST data a second time. The user gets a browser pop-up that tries to explain what is about to happen. 
+#### POST-Redirect-GET-Refresh 
+<br/>
+
+#### Cookies (Browser Concept) - Session (Server Concept)
+#### A server might have many different connections to browsers. Need a way to distinguish between different connections. Thus, you use a cookie to mark who is who. Cookies include a state of the connection data. 
+#### browser requests a Web page -> server sends back a page + cookie -> browser requests another page. 
+#### def cookie(request):
+####    print(request.COOKIES)
+####    resp = HttpResponse('C is for cookie and that is good enough for me...')
+####    resp.set_cookie('zap', 42) # No expired date = until browser close
+####    resp.set_cookie('sakaicar', 42, max_age=1000) # seconds until expire 
+####    return resp 
+<br/>
+
+#### Django Sessions
+#### Before urls.py, Session Middleware accepts the request and checks for the cookie to look for the session stored in the database. 
+#### In most server applications, as soon as we start a session for a new browser we create a session. We set a session cookie to be stored in the browser, which indicates the session id in use - gives this browser a unique "mark". The creation and destruction of sessions is handled by a Django middleware that we use in our applications. 
+#### Session Identifier - a large, random number that we place in a browser cookie the first time we encounter a browser. Used to pick from the many sessions that the server has active at any one time. For example, shopping cart or login information is stored in the session in the server. 
+#### settings.py -> Middleware -> 'django.contrib.sessions.middleware.SessionMiddleware', 
+#### Stored in the database. When python manage.py migrate -> sessions.0001_initial... => This is the sessions data. 
+#### The incoming request object has a request.session attribute that we can treat like a dictionary that persists from one request to the next request. As long we have the session middleware enabled in settings.py and the database table, and the browser allows cookies, we just store and read reqeust.session in our views and pretend it is magic. 
+<br/>
+
+#### def sessfun(request):
+####    num_visits = request.session.get('num_visits', 0) + 1 
+####    request.session[num_visits'] = num_visits 
+####    if num_visits > 4: del(request.session['num_visits'])
+####    return HttpResponse('view count='+str(num_visits))
+#### Cookie is the thing that looks that up and session is where we store the information. 
+<br/>
+
+#### 
+
+
 
 
 
