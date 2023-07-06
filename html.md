@@ -486,6 +486,13 @@
 #### Cookie is the thing that looks that up and session is where we store the information. 
 <br/>
 
+#### Data Modelling - One to Many 
+#### model.py - define the structure of our database. 
+#### Model Design is an art form of its own with particular skills and experience. Our goal is to avoid the really bad mistakes and design clean and easily understood models. Model design starts with a sample data set and draws a picture. 
+#### Database Normalization (3NF). There is tons of database theory / math and we simplify this to a few rules. Do not replicate data. Add a special unique key column to each table which we will make references to - by convention, many programmers and frameworks call this column 'id'. Use integers for making links between tables - integers are fast and small. 
+<br/>
+
+#### Designing a Data Model
 #### 
 
 
